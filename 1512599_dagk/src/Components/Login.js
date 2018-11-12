@@ -5,9 +5,11 @@ import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import '../App.css'
 import { GoogleLogout } from 'react-google-login';
+import { Link } from 'react-router-dom'
+import  { Redirect } from 'react-router-dom'
 // import GoogleButton from 'react-google-button' // optional
 
-export const Header = ({ firebase, auth }) => (
+export const Login = ({ firebase, auth }) => (
   <div>
      <nav class="navbar navbar-default" role="navigation">
        <div class="container-fluid">
@@ -23,54 +25,50 @@ export const Header = ({ firebase, auth }) => (
            <ul class="nav navbar-nav navbar-right">
              
              <li class="dropdown">
-               <Link to="/">
-
-                <button color="primary"
-                      onClick={() => firebase.auth().signOut().then(function () {
-                      })}
-                    >Logout</button>
-                </Link>
+               
+                <button  type="submit" class="btn btn-default" 
+                onClick={() => firebase.login({ provider: 'google', type: 'popup' })}
+                ><b class = "login">LOGIN</b></button>
+              
+                
              </li>
            </ul>
          </div>
        </div>
      </nav>
 
-   
-    <div>
+         <div>
      
       {
         !isLoaded(auth)
         ? <span>Loading...</span>
         : isEmpty(auth)
-          ? <span>Not Authed</span>
-          : <div>
-                          Login information:
-                        <div>{auth.email}</div>
-                          <div>{auth.displayName}</div>
-                        </div>
+          ? <span></span>
+          : <div>   
+               
+                  <Redirect to="/user">              
+                  </Redirect>
+            </div>
       }
       
-    <br></br>
-    <button color="primary"
-    onClick={() => firebase.auth().signOut().then(function () {
-    })}
-    >Logout</button>
-
       </div>
+
   </div>
 )
 
 
 
-// Header.propTypes = {
-//   firebase: PropTypes.shape({
-//     Header: PropTypes.func.isRequired
-//   }),
-//   auth: PropTypes.object
-// }
+Login.propTypes = {
+  firebase: PropTypes.shape({
+    login: PropTypes.func.isRequired
+  }),
+  auth: PropTypes.object
+   
+}
 
-// export default compose(
-//   firebaseConnect(), // withFirebase can also be used
-//   connect(({ firebase: { auth } }) => ({ auth }))
-// )(Header)
+
+
+export default compose(
+  firebaseConnect(), // withFirebase can also be used
+  connect(({ firebase: { auth } }) => ({ auth }))
+)(Login)
