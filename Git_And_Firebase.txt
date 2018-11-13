@@ -1,0 +1,2 @@
+Github: https://github.com/NguyenTienTrien/DAGK_Chat
+Firebase: https://dagk-956eb.firebaseapp.com/
