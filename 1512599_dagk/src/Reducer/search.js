@@ -9,7 +9,7 @@ class Search extends Component {
                       crossOrigin="anonymous"/>
                 <div className='search-container'>
                     <button className='search-button'><i className="fas fa-search"></i></button>
-                    <input className='search-input' placeholder='enter name'/>
+                    <input className='search-input' placeholder='Enter name'/>
                 </div>
             </div>
         )

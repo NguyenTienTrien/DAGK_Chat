@@ -3,8 +3,11 @@ import firebase from "firebase";
 import { Form,Label,Input,FormGroup } from 'reactstrap';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Login2 from "../Components/userCurent"
-import ListFriends from "../Friends/listFriend"
-import Search from "../Friends/search"
+import ListFriends from "../Reducer/listFriend"
+import Search from "../Reducer/search"
+import  { Redirect } from 'react-router-dom'
+import './loadUser.css'
+import Chat from "../Action/chat"
 class Users extends Component {
     constructor(props) {
         super(props);
@@ -107,15 +110,19 @@ class Users extends Component {
                            <ul class="nav navbar-nav">
                            </ul>
                            <ul class="nav navbar-nav navbar-right">
-                                <li >
-                                    <Login2/    >
+                                <li>
+                                    <Login2/>
                                 </li>
 
                              <li class="dropdown">
                                <Link to="/">
                                 <button color="primary"
                                       onClick={() => firebase.auth().signOut().then(function () {
-                                      })}
+                                            
+                                      }).catch(function(error){
+
+                                      })
+                                  }
                                     >Logout</button>
                                 </Link>
                              </li>
@@ -124,7 +131,7 @@ class Users extends Component {
                        </div>
                 </nav>
                 <div className="rows">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 kedoc">
                         
                     
                         <h3>Danh sách người dùng</h3>
@@ -133,18 +140,19 @@ class Users extends Component {
                             users.map(user => (
                                 <div>
 
-                                    <li className="clearfix">
-                                        <img
-                                            src={`${user.photoURL}`}
-                                            alt="avatar"
-                                            style={{ width: "80px", height: "auto" }}
+                                    <li >
+                                      <img
+                                        src={`${user.photoURL}`}
+                                        alt="avatar"
+                                        style={{ width: "80px", height: "auto" }}
                                         />
+
                                         <div className="about">
                                             <div className="name">{user.displayName}</div>
-                                            <div className="status">
-                                                <i className="fa fa-circle online" /> online
-                                    </div>
-                                        </div>
+                                            <div className="status"> </div>
+                                            </div>
+                                      
+                                        <br/>
                                     </li>
 
                                 </div>
@@ -155,9 +163,7 @@ class Users extends Component {
                          <br/>
                         <Search/>
                     </div>
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                        
-                        <h2>Chat</h2>
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                         {
                             chat.map(user => (
                                 <div>
@@ -170,12 +176,7 @@ class Users extends Component {
 
                             ))
                         }
-                        <Form>
-                            <FormGroup>
-                                <Label for="exampleEmail">Chat</Label>
-                                <Input  placeholder="Nhập chat" />
-                            </FormGroup>
-                        </Form>
+                        <Chat/>
                     </div>
                 </div>
             </ul>

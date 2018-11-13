@@ -1,0 +1,14 @@
+.image-upload > input {
+  visibility:hidden;
+  width:0;
+  height:0;
+  margin-right: 5px;
+}
+
+.kedoc{
+	border-right: 1px solid #000;
+}
+
+.bentrai{
+	text-align: right;
+}

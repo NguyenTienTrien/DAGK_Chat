@@ -30,11 +30,7 @@ export const Login2 = ({ firebase, auth }) => (
                <div>
      
                   {
-                    !isLoaded(auth)
-                    ? <span>Loading...</span>
-                    : isEmpty(auth)
-                      ? <span>Not Authed</span>
-                      : <div className="user">
+                    <div className="user">
                                       
                                     <div>{auth.email}</div>
                                       <div>{auth.displayName}</div>
